@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Resmi Kabupaten Bantaeng</title>
+    <meta name="description" content="Website Resmi Kabupaten Bantaeng, Sulawesi Selatan. Informasi lengkap mengenai pemerintahan, sejarah, budaya, geografi, ekonomi, dan pariwisata.">
+    <meta name="author" content="Reski Ardiansyah">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-color: #004d40; /* Deep Teal - Professional/Gov */
+            --primary-dark: #00332a;
+            --accent-color: #ffc107; /* Gold - Prosperity/Culture */
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .text-center { text-align: center; }
+        .text-primary { color: var(--primary-color); }
+        .text-accent { color: var(--accent-color); }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 6px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* --- HEADER & NAVIGATION (Visible on All Pages) --- */
+        header {
+            position: fixed; /* Menjadikan Header tetap di atas */
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000; /* Memastikan selalu di atas konten lain */
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            z-index: 1001;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark);
+            position: relative;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        /* --- PAGE CONTENT STRUCTURE (SPA) --- */
+        .page-section {
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.6s ease-out;
+            min-height: 100vh;
+            padding-top: 80px; /* Offset for fixed header */
+        }
+
+        .page-section.active-page {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 90vh;
+            background: linear-gradient(rgba(0, 77, 64, 0.8), rgba(0, 51, 42, 0.9)), url('https://z-cdn-media.chatglm.cn/files/fb1da946-b8db-407c-90b8-1ec206dbef7d.jpg?auth_key=1871662821-aa4fc84a1a374e75a0f03e5b3a5b4962-0-7ab1ca87c45eca219e44846da3b194f6');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* --- CONTENT CARDS & LAYOUTS --- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-img-wrapper {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .card-body {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .info-box {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 2.25rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- SPECIFIC PAGES --- */
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .timeline {
+            position: relative;
+            border-left: 2px solid var(--accent-color);
+            margin-left: 20px;
+            padding-left: 30px;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            box-shadow: 0 0 0 2px var(--accent-color);
+        }
+
+        .government-card {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--white);
+            border-radius: 16px;
+        }
+        
+        .government-card h3 { color: var(--accent-color); }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 0 20px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-credits {
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-credits a {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* --- TOAST NOTIFICATION --- */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--white);
+            color: var(--text-dark);
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            border-left: 4px solid var(--primary-color);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: 0.4s ease;
+                box-shadow: var(--shadow-md);
+            }
+            .nav-menu.active { left: 0; }
+            .nav-link { font-size: 1.2rem; }
+            .hero { height: auto; padding: 120px 0 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation (Logo Visible on All Pages) -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo" onclick="navigateTo('beranda')">
+                <!-- Updated to logo kab bantaeng.jpg -->
+                <img src="https://z-cdn-media.chatglm.cn/files/54a81df6-7e63-4429-84c3-dc67f123b542.jpg?auth_key=1871664800-fe02b12655b54e589cbaa1344d223900-0-b938f27852199ec2856ec03d7e597fa1" alt="Logo Kabupaten Bantaeng">
+                <span>KAB. BANTAENG</span>
+            </a>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a class="nav-link active" onclick="navigateTo('beranda')">Beranda</a></li>
+                <li><a class="nav-link" onclick="navigateTo('sejarah')">Sejarah & Budaya</a></li>
+                <li><a class="nav-link" onclick="navigateTo('geografi')">Geografi & SDA</a></li>
+                <li><a class="nav-link" onclick="navigateTo('ekonomi')">Ekonomi</a></li>
+                <li><a class="nav-link" onclick="navigateTo('pariwisata')">Pariwisata</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HALAMAN BERANDA -->
+    <section id="beranda" class="page-section active-page">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="container hero-content">
+                <h1>Kabupaten Bantaeng</h1>
+                <p>“Butta Toa” - Tanah Tua dengan Akar Budaya Kuat dan Potensi Masa Depan yang Cerah di Pesisir Selatan Sulawesi.</p>
+                <div class="cta-group">
+                    <button class="btn" onclick="navigateTo('pariwisata')">Jelajahi Wisata</button>
+                    <button class="btn btn-outline" onclick="navigateTo('sejarah')">Profil Pemerintahan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Identitas -->
+        <div class="section-padding">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Identitas dan Letak</h2>
+                    <p>Salah satu kabupaten di Provinsi Sulawesi Selatan dengan karakter geografis unik di pesisir selatan.</p>
+                </div>
+                <div class="grid-2">
+                    <div class="info-box">
+                        <h3><i class="fas fa-map-marked-alt text-primary"></i> Letak Geografis</h3>
+                        <p style="margin-top: 15px;">Berjarak sekitar 123 km dari Kota Makassar (ibu kota provinsi), dengan akses darat sekitar 2,5 jam perjalanan.</p>
+                        <ul style="margin-top: 15px; margin-left: 20px; list-style-type: disc;">
+                            <li><strong>Utara:</strong> Kabupaten Gowa dan Bulukumba</li>
+                            <li><strong>Timur:</strong> Kabupaten Bulukumba</li>
+                            <li><strong>Barat:</strong> Kabupaten Jeneponto</li>
+                            <li><strong>Selatan:</strong> Laut Flores</li>
+                        </ul>
+                    </div>
+                    <div class="info-box" style="background: var(--primary-color); color: white; border-left: none;">
+                        <h3><i class="fas fa-landmark text-accent"></i> Visi Pemerintah</h3>
+                        <blockquote style="font-size: 1.2rem; font-style: italic; margin-top: 20px; border-left: 3px solid var(--accent-color); padding-left: 15px;">
+                            "Mewujudkan Bantaeng yang maju, mandiri berlandaskan iman dan taqwa."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Administrasi & Populasi -->
+        <div class="section-padding" style="background-color: #f1f5f9;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Administrasi & Populasi</h2>
+                    <p>Data terkini struktur wilayah dan demografi penduduk.</p>
+                </div>
+                <div class="grid-4">
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Kecamatan</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">21</div>
+                        <div class="stat-label">Kelurahan</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">46</div>
+                        <div class="stat-label">Desa</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">±395,83</div>
+                        <div class="stat-label">Luas Wilayah (km²)</div>
+                    </div>
+                </div>
+                <div class="grid-2" style="margin-top: 40px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Estimasi Penduduk (2024)</h3>
+                            <p class="stat-number text-primary">217.267 <span style="font-size:1rem; color: #64748b;">jiwa</span></p>
+                            <p style="margin-top: 10px;">Kepadatan rata-rata mencapai ±556 jiwa/km².</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Struktur Demografi</h3>
+                            <ul style="margin-top: 10px; list-style: none;">
+                                <li><i class="fas fa-check text-accent"></i> Rasio jenis kelamin: 98,1 (Seimbang)</li>
+                                <li><i class="fas fa-check text-accent"></i> Dominasi usia: 20–24 Tahun</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pemerintahan (Updated with Photo & Correct Logo) -->
+        <div class="section-padding">
+            <div class="container">
+                <div class="government-card">
+                    <!-- Updated to logo kab bantaeng.jpg -->
+                    <div style="margin-bottom: 20px;">
+                        <img src="https://z-cdn-media.chatglm.cn/files/54a81df6-7e63-4429-84c3-dc67f123b542.jpg?auth_key=1871664800-fe02b12655b54e589cbaa1344d223900-0-b938f27852199ec2856ec03d7e597fa1" alt="Logo" style="width: 80px; margin: 0 auto; filter: brightness(0) invert(1);">
+                    </div>
+                    
+                    <!-- Foto Bupati dan Wakil Bupati -->
+                    <div style="margin: 0 auto 25px; width: 100%; max-width: 500px;">
+                        <img src="https://z-cdn-media.chatglm.cn/files/bf5ba734-f608-40f7-9d47-799cd05ffa46.jpg?auth_key=1871664552-c30e99173a2d47c58077f0da54b30bbc-0-cd5744d66a3f4a926ceee17fd9ce3aa3" alt="Bupati dan Wakil Bupati Bantaeng" style="width: 100%; border-radius: 12px; border: 3px solid rgba(255,255,255,0.3); box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+                    </div>
+
+                    <h3>Pemerintahan Kabupaten Bantaeng</h3>
+                    <p style="font-size: 1.1rem; margin-bottom: 20px;">Periode 2025–2030</p>
+                    <div class="grid-2" style="text-align: left; color: white; gap: 20px;">
+                        <div>
+                            <strong>Bupati:</strong><br>Muhammad Fathul Fauzy Nurdin
+                        </div>
+                        <div>
+                            <strong>Wakil Bupati:</strong><br>Drs. H. Sahabuddin
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">Dilantik pada 20 Februari 2025 | Partai Pengusung: Partai Golkar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HALAMAN SEJARAH DAN BUDAYA -->
+    <section id="sejarah" class="page-section">
+        <div class="section-padding" style="background: linear-gradient(to bottom, var(--white), #f8fafc);">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Sejarah & Budaya</h2>
+                    <p>Mengenal akar "Butta Toa" dan peradaban yang berkembang sejak masa prasejarah.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <img src="https://z-cdn-media.chatglm.cn/files/d55ba0cc-4b6b-4d60-b914-c5bf48c0786c.jpg?auth_key=1871662821-b9b318ea9e824e648097f278734b0301-0-0651a0a164457862e888eb5e9c314a01" alt="Sejarah Bantaeng" style="border-radius: 12px; box-shadow: var(--shadow-lg);">
+                    </div>
+                    <div>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <h3>Abad ke-13</h3>
+                                <p>Komunitas budaya dan pemerintahan mulai berdiri. Hari Jadi Bantaeng diperingati setiap tanggal 7 Desember.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h3>Julukan "Butta Toa"</h3>
+                                <p>Dikenal sebagai Tanah Tua, menunjukkan akar kebudayaan yang sudah berkembang sejak masa prasejarah.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h3>Evolusi Nama</h3>
+                                <p>Perubahan nama seiring waktu: <strong>Bantayan → Bhontain → Bantaeng</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title" style="margin-top: 80px;">
+                    <h2>Warisan Budaya & Bahasa</h2>
+                </div>
+                
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-language fa-3x text-primary" style="margin-bottom: 15px;"></i>
+                            <h3 class="card-title">Bahasa</h3>
+                            <p><strong>Bahasa Daerah:</strong> Bahasa Makassar umum dipakai.</p>
+                            <p><strong>Bahasa Resmi:</strong> Bahasa Indonesia dalam instansi pemerintahan.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-mosque fa-3x text-primary" style="margin-bottom: 15px;"></i>
+                            <h3 class="card-title">Tradisi Islam</h3>
+                            <p>Perpaduan budaya lokal Islam dan arsitektur tradisional Bugis-Makassar yang masih terpelihara.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-users fa-3x text-primary" style="margin-bottom: 15px;"></i>
+                            <h3 class="card-title">Masyarakat Pesisir</h3>
+                            <p>Budaya lokal kental dengan tradisi masyarakat pesisir dan leluhur Sulawesi Selatan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Situs Sejarah -->
+                <h3 style="margin: 60px 0 30px; font-size: 1.8rem; color: var(--primary-color);">Wisata Sejarah & Budaya</h3>
+                <div class="grid-3">
+                    
+                    <!-- CARD 1: Situs Onto (UPDATED WITH IMAGE) -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="https://z-cdn-media.chatglm.cn/files/2c494e50-f42c-4848-b5ed-b0db2ecb5f36.jpg?auth_key=1871665693-16324ab676df4b218119170662931361-0-85be994c0d0e4f39bbe7ddf23b8d4344" alt="Situs Onto - Rumah Tradisional Bantaeng">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Situs Onto</h4>
+                            <p>Pusat awal Kerajaan Bantaeng (abad 13), terdiri dari rumah tradisional panggung yang berdiri kokoh di tengah alam asri.</p>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: Masjid Tua Taqwa Tompong (UPDATED WITH IMAGE) -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="https://z-cdn-media.chatglm.cn/files/434de130-798d-46c6-adcf-2eec436fcb5f.jpg?auth_key=1871665693-185ae79d44024b48bc0e0e168d4ce3c3-0-370da52d2d93c4226d80513a849b80c4" alt="Masjid Tua Taqwa Tompong">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Masjid Tua Taqwa Tompong</h4>
+                            <p>Berdiri sejak 1885, memiliki arsitektur unik dengan atap merah dan menara putih, menjadi saksi sejarah penyebaran Islam.</p>
+                        </div>
+                    </div>
+
+                    <!-- Balla Lompoa Card with Image -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="https://z-cdn-media.chatglm.cn/files/8c64f8e9-0697-4c9d-9558-4dcaf543a5fd.jpg?auth_key=1871664043-53512503aa3c44928f31a6d4bdc9f077-0-2610dd97a1a87b5ae7aa273c5cd1e1b0" alt="Balla Lompoa">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Balla Lompoa</h4>
+                            <p>Istana rumah adat kerajaan dengan desain panggung Bugis-Makassar yang megah.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HALAMAN GEOGRAFI DAN SUMBER DAYA ALAM -->
+    <section id="geografi" class="page-section">
+        <div class="section-padding">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Geografi & Sumber Daya Alam</h2>
+                    <p>Kondisi topografi, iklim, dan potensi alam yang mendukung kesejahteraan.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <img src="https://z-cdn-media.chatglm.cn/files/fb1da946-b8db-407c-90b8-1ec206dbef7d.jpg?auth_key=1871662821-aa4fc84a1a374e75a0f03e5b3a5b4962-0-7ab1ca87c45eca219e44846da3b194f6" alt="Peta Bantaeng" style="border-radius: 12px; box-shadow: var(--shadow-md);">
+                    </div>
+                    <div>
+                        <div class="info-box">
+                            <h3 class="card-title">Topografi & Iklim</h3>
+                            <p><strong>Topografi:</strong> Mencakup daerah pesisir, dataran rendah, dan bukit kecil di bagian utara.</p>
+                            <p style="margin-top: 10px;"><strong>Iklim:</strong> Tropis dengan curah hujan cukup tinggi (paling banyak bulan Desember).</p>
+                            <p style="margin-top: 10px;"><strong>Suhu:</strong> Rata-rata 21,1–36,6°C.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-3" style="margin-top: 50px;">
+                    <div class="card">
+                        <div class="card-img-wrapper" style="height: 180px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-seedling fa-3x text-primary"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Pertanian & Perkebunan</h3>
+                            <p>Lahan sawah dan kering signifikan untuk tanaman pangan, hortikultura, dan kakao.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img-wrapper" style="height: 180px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-fish fa-3x text-primary"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Perikanan & Laut</h3>
+                            <p>Garis pantai 21,5 km mendukung perikanan laut dan budidaya rumput laut.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img-wrapper" style="height: 180px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-tree fa-3x text-primary"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Hutan Lindung</h3>
+                            <p>Hutan produksi terbatas dan lindung sebagai penyeimbang lingkungan dan ekowisata.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HALAMAN EKONOMI DAN MASYARAKAT -->
+    <section id="ekonomi" class="page-section">
+        <div class="section-padding" style="background-color: #f1f5f9;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Ekonomi & Masyarakat</h2>
+                    <p>Struktur ekonomi yang ditopang sektor primer dan jasa layanan publik.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="https://z-cdn-media.chatglm.cn/files/08d2ee74-5d90-46ea-90ee-2c6e6bf560f5.jpg?auth_key=1871662821-444db194931242d09f234c3ccd4e6dab-0-8e939a55f5f089ee1197b8df88a0c1f5" alt="Ekonomi Bantaeng">
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Garda Senusus Ekonomi</h3>
+                            <p>Pemerintah aktif mendorong pengembangan ekonomi melalui perluasan basis data perkebunan dan pemasyarakatan program ekonomi kerakyatan.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-box" style="margin-bottom: 20px;">
+                            <h3 class="card-title"><i class="fas fa-chart-line text-primary"></i> Struktur Ekonomi</h3>
+                            <ul style="list-style: none; margin-top: 10px;">
+                                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle text-accent"></i> <strong>Pertanian & Perikanan:</strong> Komoditas pangan dan hasil laut.</li>
+                                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle text-accent"></i> <strong>UMKM Lokal:</strong> Kerajinan dan pengolahan hasil pertanian.</li>
+                                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle text-accent"></i> <strong>Wisata Alam:</strong> Daya tarik tambahan pendapatan daerah.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <h3 class="card-title"><i class="fas fa-road text-primary"></i> Infrastruktur</h3>
+                            <p>Infrastruktur transportasi menghubungkan Bantaeng dengan kota besar seperti Makassar. Layanan publik sipil dan statistik mendukung pembangunan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 40px; border-left: 5px solid #ef4444;">
+                    <div class="card-body">
+                        <h3 class="card-title" style="color: #ef4444;"><i class="fas fa-exclamation-triangle"></i> Tantangan & Peristiwa Terkini</h3>
+                        <p>Kabupaten Bantaeng menghadapi tantangan lingkungan, terutama bencana banjir akibat hujan intensif yang memicu penanganan darurat oleh pemerintah provinsi dan daerah.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HALAMAN PARIWISATA -->
+    <section id="pariwisata" class="page-section">
+        <div class="section-padding">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Pariwisata Kabupaten Bantaeng</h2>
+                    <p>Menikmati keindahan alam, kedalaman sejarah, dan kearifan lokal.</p>
+                </div>
+
+                <!-- Wisata Alam -->
+                <h3 style="margin-bottom: 30px; font-size: 1.8rem; color: var(--primary-color);">Wisata Alam</h3>
+                <div class="grid-3">
+                    <!-- Pemandian Alam Eremerasa -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="https://z-cdn-media.chatglm.cn/files/4dc86640-29d6-42eb-9ba9-b7693f17468a.jpg?auth_key=1871664043-ebc5f8e4c8544cd5a3a3793696b8ffd0-0-f8df638d1753d83818d6f7e8508cc85d" alt="Pemandian Alam Eremerasa">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Pemandian Alam Eremerasa</h4>
+                            <p>Kolam pemandian alami air pegunungan jernih di Kecamatan Eremerasa, ramai pengunjung.</p>
+                        </div>
+                    </div>
+
+                    <!-- Air Terjun Bissappu -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="https://z-cdn-media.chatglm.cn/files/9e2b6713-06db-4b25-93d3-7e78fb251d94.jpg?auth_key=1871664043-c4f4d4235b2b4fc7a9632eb4ee3ea165-0-3b1848727e451b6df3d2e5970810ac8f" alt="Air Terjun Bissappu">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Air Terjun Bissappu</h4>
+                            <p>Panorama alam tropis yang memukau di Desa Bonto Salluang, Kecamatan Bissappu.</p>
+                        </div>
+                    </div>
+
+                    <!-- Agrowisata Loka -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="https://z-cdn-media.chatglm.cn/files/ad22e536-aa26-4a20-9e8a-1df1d23f42b1.jpg?auth_key=1871664043-fcc875c0d94c4736900064ab029af57c-0-73cbbadc18e3f18569a676b844d9e6ed" alt="Agrowisata Loka">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Agrowisata Loka’</h4>
+                            <p>Wisata perkebunan sejuk di kaki Gunung Lompobattang dengan panorama laut dan udara segar.</p>
+                        </div>
+                    </div>
+
+                    <!-- Pantai Seruni -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="https://z-cdn-media.chatglm.cn/files/80891558-0076-4ba4-95be-17351f68a6e7.jpg?auth_key=1871664043-0478a2c926b54249b075228c4d958a68-0-b5a4c3999be6a707aef2ca4fbbb5e354" alt="Pantai Seruni">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Pantai Seruni</h4>
+                            <p>Lokasi favorit di pusat kota untuk bersantai, jogging, dan menikmati fasilitas umum.</p>
+                        </div>
+                    </div>
+
+                    <!-- Pantai Marina -->
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img src="https://z-cdn-media.chatglm.cn/files/e44ce301-e478-4523-9ef4-094c7063818c.jpg?auth_key=1871664043-4c89e631c75f45788439d68a66e50bb9-0-2de9c791e49f57cc8beb469c6ee3d4f4" alt="Pantai Marina">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Pantai Marina</h4>
+                            <p>Tempat menikmati sunset dengan ikon "I ❤️ MARINA", dilengkapi rest area dan cinderamata.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wisata Sejarah & Budaya (Link to Balla Lompoa Image used in History Section) -->
+                <h3 style="margin: 60px 0 30px; font-size: 1.8rem; color: var(--primary-color);">Wisata Sejarah & Budaya</h3>
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-landmark fa-2x text-accent" style="margin-bottom: 10px;"></i>
+                            <h4 class="card-title">Situs Onto</h4>
+                            <p>Situs arkeologi pusat awal Kerajaan Bantaeng (abad 13).</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-place-of-worship fa-2x text-accent" style="margin-bottom: 10px;"></i>
+                            <h4 class="card-title">Masjid Tua Taqwa Tompong</h4>
+                            <p>Warisan arsitektur bersejarah sejak 1885.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-home fa-2x text-accent" style="margin-bottom: 10px;"></i>
+                            <h4 class="card-title">Balla Lompoa</h4>
+                            <p>Istana adat kerajaan Bugis-Makassar yang megah.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-monument fa-2x text-accent" style="margin-bottom: 10px;"></i>
+                            <h4 class="card-title">Kompleks Makam La Tenri Ruwa</h4>
+                            <p>Makam Raja Bone pertama yang memeluk Islam.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-dungeon fa-2x text-accent" style="margin-bottom: 10px;"></i>
+                            <h4 class="card-title">Goa Batu Ejayya</h4>
+                            <p>Gua purbakala dengan jejak kehidupan prasejarah.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wisata Desa -->
+                <h3 style="margin: 60px 0 30px; font-size: 1.8rem; color: var(--primary-color);">Wisata Desa</h3>
+                <div class="card" style="background: linear-gradient(to right, #004d40, #00695c); color: white;">
+                    <div class="card-body text-center">
+                        <span style="background: var(--accent-color); color: #000; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem;">ADWI 2022</span>
+                        <h3 style="margin: 15px 0; font-size: 1.8rem;">Desa Wisata Campaga</h3>
+                        <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
+                            Masuk 50 besar Anugerah Desa Wisata Indonesia. Terkenal dengan hutan lindung, air terjun Simoko, kolam pemandian alami Erbol dan Ertob, serta suvenir lokal kopi dan dodol.
+                        </p>
+                        <button class="btn btn-outline" style="margin-top: 20px;" onclick="showToast('Mengarahkan ke peta Desa Campaga...')">Lihat Lokasi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>
+                        <!-- Updated to logo kab bantaeng.jpg -->
+                        <img src="https://z-cdn-media.chatglm.cn/files/54a81df6-7e63-4429-84c3-dc67f123b542.jpg?auth_key=1871664800-fe02b12655b54e589cbaa1344d223900-0-b938f27852199ec2856ec03d7e597fa1" alt="Logo" style="height: 40px; filter: brightness(0) invert(1);">
+                        KABUPATEN BANTAENG
+                    </h3>
+                    <p style="max-width: 300px; opacity: 0.8;">Mewujudkan Bantaeng yang maju, mandiri, dan berbudaya.</p>
+                </div>
+                <div>
+                    <h4>Kontak & Info</h4>
+                    <ul style="opacity: 0.8; margin-top: 15px;">
+                        <li style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt"></i> Sulawesi Selatan, Indonesia</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-envelope"></i> info@bantaengkab.go.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-credits">
+                <p>Website ini dibuat oleh <a href="https://ar0236879-w.github.io/Reski-Ardiansyah/portofolio%20Reski%20Ardiansyah.html" target="_blank">Reski Ardiansyah</a></p>
+                <p style="font-size: 0.8rem; margin-top: 5px;">&copy; 2025 Pemerintah Kabupaten Bantaeng. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Component -->
+    <div id="toast" class="toast">
+        <i class="fas fa-info-circle text-primary"></i>
+        <span id="toast-message">Notification</span>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- NAVIGATION LOGIC (SPA ROUTER) ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.page-section');
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+
+            // Function to navigate to specific section
+            window.navigateTo = (targetId) => {
+                // Update active state in Navigation
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if(link.getAttribute('onclick').includes(targetId)) {
+                        link.classList.add('active');
+                    }
+                });
+
+                // Hide all sections, Show target
+                sections.forEach(section => {
+                    section.classList.remove('active-page');
+                    if(section.id === targetId) {
+                        section.classList.add('active-page');
+                    }
+                });
+
+                // Close mobile menu if open
+                navMenu.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+
+                // Scroll to top
+                window.scrollTo(0, 0);
+            };
+
+            // Hamburger Toggle
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                if(navMenu.classList.contains('active')){
+                    hamburger.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+
+            // --- TOAST NOTIFICATION ---
+            window.showToast = (message) => {
+                const toast = document.getElementById('toast');
+                const toastMsg = document.getElementById('toast-message');
+                
+                toastMsg.innerText = message;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            };
+
+            // --- INTERSECTION OBSERVER FOR ANIMATIONS ---
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements that need animation
+            // We'll apply fade-in animation to cards and info boxes when they appear
+            const animatedElements = document.querySelectorAll('.card, .info-box, .government-card, .stat-item');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease-out';
+                observer.observe(el);
+            });
+
+            // Re-observe when switching tabs to ensure animations play
+            // Simple approach: reset styles and observe again on nav click
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    setTimeout(() => {
+                        const activeSection = document.querySelector('.active-page');
+                        const elements = activeSection.querySelectorAll('.card, .info-box, .government-card, .stat-item');
+                        elements.forEach(el => {
+                            el.style.opacity = '0';
+                            el.style.transform = 'translateY(30px)';
+                            observer.observe(el);
+                        });
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
